@@ -1,0 +1,24 @@
+[project]
+name = "salesops-agent"
+version = "1.0.0"
+description = "Guarded B2B SalesOps AI Agent Runtime with multi-tier guardrails, AST-constrained CRM sandboxing, HITL approval gates, and redacted tracing"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Amit Kumar Koshta", email = "kenseiamit@gmail.com" }]
+dependencies = [
+    "pydantic>=2.5.0",
+    "pyyaml>=6.0.0",
+    "httpx>=0.27.0",
+    "pytest>=8.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest-cov>=5.0.0",
+    "ruff>=0.6.0",
+]
+
+[project.scripts]
+salesops-agent = "salesops_agent.cli:cli_main"
+evaluate = "salesops_agent.cli:evaluate_main"
