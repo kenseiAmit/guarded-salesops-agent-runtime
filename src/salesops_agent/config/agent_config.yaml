@@ -1,0 +1,73 @@
+version: "1.0.0"
+environment: "production"
+
+model:
+  provider: "anthropic" # "anthropic" | "bedrock" | "mock"
+  name: "claude-sonnet-4-6"
+  temperature: 0.1
+  max_tokens: 1024
+  timeout_seconds: 30
+
+cost_estimation:
+  input_token_cost_per_million: 3.00
+  output_token_cost_per_million: 15.00
+
+paths:
+  data_dir: "data"
+  logs_file: "logs/runs.jsonl"
+  traces_dir: "traces"
+  reports_dir: "reports"
+  evaluation_report_md: "reports/evaluation_report.md"
+  evaluation_report_json: "reports/evaluation_report.json"
+  monitoring_report_md: "reports/monitoring_report.md"
+
+guardrails:
+  input_guardrails_enabled: true
+  tool_guardrails_enabled: true
+  output_guardrails_enabled: true
+  blocked_action_policy: "salesops_data_access_policy"
+  restricted_terms:
+    - "ceo bonus"
+    - "executive compensation"
+    - "equity bonus"
+    - "salary"
+    - "severance"
+    - "firing"
+    - "termination"
+    - "performance improvement"
+    - "pip"
+    - "m&a"
+    - "merger"
+    - "acquisition"
+    - "acquiring acme"
+    - "layoff"
+    - "layoffs"
+    - "downsizing"
+    - "ignore previous instructions"
+    - "reveal hidden instructions"
+    - "system prompt leak"
+
+hitl:
+  require_approval_for:
+    - "send_email"
+  default_action_on_missing_flag: "require_explicit" # requires explicit approve or reject
+
+sandbox:
+  timeout_seconds: 5.0
+  max_output_length: 5000
+  blocked_builtins:
+    - "exec"
+    - "eval"
+    - "compile"
+    - "__import__"
+    - "open"
+    - "breakpoint"
+  restricted_modules:
+    - "os"
+    - "sys"
+    - "subprocess"
+    - "socket"
+    - "requests"
+    - "urllib"
+    - "shutil"
+    - "pathlib"
