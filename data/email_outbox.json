@@ -1,0 +1,62 @@
+[
+  {
+    "to": "omar.stone@acmecorp.example.com",
+    "subject": "Following up on Acme Corp",
+    "body": "Hi Omar,\n\nI wanted to follow up regarding next steps.\n\nBest,\nNexaCRM SalesOps Agent\n",
+    "status": "sent"
+  },
+  {
+    "to": "contact@targetcompany.com",
+    "subject": "Follow-up",
+    "body": "SalesOps follow-up regarding: Send an email to Acme Corp",
+    "status": "sent"
+  },
+  {
+    "to": "contact@targetcompany.com",
+    "subject": "Follow-up",
+    "body": "SalesOps follow-up regarding: Draft and send a follow-up email to Acme Corp",
+    "status": "sent"
+  },
+  {
+    "to": "contact@targetcompany.com",
+    "subject": "Follow-up",
+    "body": "SalesOps follow-up regarding: Send an email to Acme Corp",
+    "status": "sent"
+  },
+  {
+    "to": "contact@targetcompany.com",
+    "subject": "Follow-up",
+    "body": "SalesOps follow-up regarding: Draft and send a follow-up email to Acme Corp",
+    "status": "sent"
+  },
+  {
+    "to": "contact@targetcompany.com",
+    "subject": "Follow-up",
+    "body": "SalesOps follow-up regarding: Send an email to Acme Corp",
+    "status": "sent"
+  },
+  {
+    "to": "contact@targetcompany.com",
+    "subject": "Follow-up",
+    "body": "SalesOps follow-up regarding: Draft and send a follow-up email to Acme Corp",
+    "status": "sent"
+  },
+  {
+    "to": "contact@targetcompany.com",
+    "subject": "Follow-up",
+    "body": "SalesOps follow-up regarding: Draft and send a follow-up email to Acme Corp",
+    "status": "sent"
+  },
+  {
+    "to": "contact@targetcompany.com",
+    "subject": "Follow-up",
+    "body": "SalesOps follow-up regarding: Send an email to Acme Corp",
+    "status": "sent"
+  },
+  {
+    "to": "contact@targetcompany.com",
+    "subject": "Follow-up",
+    "body": "SalesOps follow-up regarding: Draft and send a follow-up email to Acme Corp",
+    "status": "sent"
+  }
+]
