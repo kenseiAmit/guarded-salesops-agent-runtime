@@ -71,3 +71,32 @@ class OutputGuardrail:
                         passed=False,
                         guardrail_type=GuardrailType.OUTPUT,
                         action="block",
+                        reason=f"sensitive_output_{category}",
+                        policy=self.policy,
+                        metadata={"category": category},
+                    )
+
+        return GuardrailResult(
+            passed=True,
+            guardrail_type=GuardrailType.OUTPUT,
+            action="allow",
+            policy=self.policy,
+            sanitized_text=response_text,
+        )
+
+    def enforce(self, response_text: str) -> Tuple[bool, str, Optional[BlockedActionResponse]]:
+        """Returns (passed, safe_text, blocked_response)."""
+        result = self.check(response_text)
+        if not result.passed:
+            if self.mode == "redact" and result.sanitized_text:
+                return True, result.sanitized_text, None
+            blocked = BlockedActionResponse(
+                status="blocked",
+                reason=result.reason or "restricted_sensitive_output",
+                policy=self.policy,
+                details={"action": "blocked_by_output_guardrail"},
+            )
+            safe_message = "I cannot provide that information as it involves restricted internal data."
+            return False, safe_message, blocked
+            
+        return True, response_text, None
