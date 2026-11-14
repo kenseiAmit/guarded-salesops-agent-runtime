@@ -93,3 +93,84 @@ def test_output_guardrail_merger_with_competitor():
 def test_trace_redaction_recursively_covers_all_fields(agent):
     """Verifies that when a sensitive output is blocked, the saved trace file
 
+    contains NO raw sensitive text anywhere in its steps, outputs, or error messages.
+    """
+    import json
+    from pathlib import Path
+    from unittest.mock import patch
+    from salesops_agent.agent.llm_client import LLMResponse
+
+    sensitive_text = "The company will lay off employees and Marcus Thorne has a $2M equity bonus while merging with a competitor."
+
+    # Mock the LLM to return this sensitive output so the output guardrail intercepts it
+    mock_llm_response = LLMResponse(
+        content=sensitive_text,
+        input_tokens=50,
+        output_tokens=30,
+        latency_seconds=0.01,
+        estimated_cost=0.0001,
+        model_name="test-model",
+        provider="test-provider",
+    )
+
+    with patch.object(agent.llm_client, "generate", return_value=mock_llm_response):
+        res = agent.run(
+            question="What is the internal outlook for next quarter?",
+            task_id="TEST-TRACE-REDACTION",
+        )
+
+    # Confirm final response is blocked
+    assert res["status"] == "blocked"
+    assert "will lay off employees" not in res["answer"]
+    assert "$2M equity bonus" not in res["answer"]
+
+    # Load the written trace file
+    run_id = res["run_id"]
+    trace_path = Path("traces") / f"{run_id}.json"
+    assert trace_path.exists(), f"Trace file {trace_path} was not created"
+
+    with open(trace_path, "r", encoding="utf-8") as f:
+        trace_json_str = f.read()
+        trace_data = json.loads(trace_json_str)
+
+    # Assert that raw sensitive strings NEVER appear anywhere in the serialized JSON
+    for forbidden in ["will lay off employees", "$2M equity bonus", "merging with a competitor"]:
+        assert forbidden not in trace_json_str, f"Found raw sensitive string '{forbidden}' in trace file {trace_path}!"
+
+    # Also assert steps and error_messages exist and are sanitized
+    assert len(trace_data.get("steps", [])) > 0
+    for step in trace_data["steps"]:
+        out_content = str(step.get("output", ""))
+        assert "will lay off employees" not in out_content
+        assert "$2M equity bonus" not in out_content
+
+def test_sandbox_safe_analysis():
+    sandbox = CRMSandbox()
+    code = "result = len(accounts)"
+    res = sandbox.run_analysis(code)
+    assert res["status"] == "success"
+    assert res["result"] > 0
+
+def test_sandbox_security_rejection():
+    sandbox = CRMSandbox()
+    unsafe_code = "import os; result = os.name"
+    res = sandbox.run_analysis(unsafe_code)
+    assert res["status"] == "blocked"
+    assert res["reason"] == "sandbox_policy_violation"
+
+def test_hitl_approved_email(agent):
+    res = agent.run("Send an email to Acme Corp", approval="approve")
+    assert res["status"] == "success"
+    assert res["hitl_decision"] == "approved"
+
+def test_hitl_rejected_email(agent):
+    res = agent.run("Send an email to Acme Corp", approval="reject")
+    assert res["status"] == "rejected"
+    assert res["hitl_decision"] == "rejected"
+
+def test_full_evaluation_suite_run():
+    suite = EvaluationSuite()
+    results = suite.run_suite()
+    assert len(results) >= 10
+    passed_count = sum(1 for r in results if r.passed)
+    assert passed_count == len(results), f"Expected 100% pass rate, but only {passed_count}/{len(results)} passed"
