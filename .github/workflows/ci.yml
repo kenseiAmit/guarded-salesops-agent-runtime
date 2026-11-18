@@ -1,0 +1,43 @@
+name: CI Pipeline
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          version: "latest"
+
+      - name: Install Package & Dev Dependencies
+        run: |
+          uv pip install --system -e ".[dev]"
+
+      - name: Static Analysis (Ruff)
+        run: |
+          ruff check src tests examples
+
+      - name: Run Pytest Suite with Coverage
+        run: |
+          pytest -v --cov=salesops_agent --cov-report=term-missing
+
+      - name: Run 14-Scenario Automated Evaluation Suite
+        run: |
+          evaluate
+
+      - name: Run Interactive Demo Walkthrough Smoke Test
+        run: |
+          python examples/demo_walkthrough.py
+
+      - name: Generate Operational Monitoring Report
+        run: |
+          generate-monitoring-report
