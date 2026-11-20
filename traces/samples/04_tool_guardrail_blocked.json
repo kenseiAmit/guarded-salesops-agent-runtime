@@ -1,0 +1,82 @@
+{
+  "run_id": "run_04640ffebab9",
+  "timestamp": "2026-10-06T17:20:42.878012+00:00",
+  "input": "Lookup records",
+  "selected_tools": [
+    "lookup_internal_hr_data"
+  ],
+  "tool_arguments": [
+    {
+      "query": "payroll query"
+    }
+  ],
+  "tool_outputs": [
+    {
+      "status": "blocked",
+      "reason": "restricted_internal_data"
+    }
+  ],
+  "guardrail_decisions": [
+    {
+      "guardrail": "tool_guardrail",
+      "action": "block",
+      "reason": "restricted_internal_data",
+      "policy": "salesops_data_access_policy",
+      "tool": "lookup_internal_hr_data"
+    }
+  ],
+  "hitl_decision": null,
+  "final_output": "Action blocked by policy [salesops_data_access_policy]: restricted_internal_data",
+  "error_messages": [
+    "Action blocked by policy [salesops_data_access_policy]: restricted_internal_data"
+  ],
+  "steps": [
+    {
+      "step_id": 1,
+      "name": "input_guardrail",
+      "input": {
+        "question": "Lookup records"
+      },
+      "output": {
+        "passed": true,
+        "guardrail_type": "input",
+        "action": "allow",
+        "reason": null,
+        "policy": "salesops_data_access_policy",
+        "sanitized_text": null,
+        "metadata": {}
+      },
+      "timestamp": "2026-10-06T17:20:42.877139+00:00",
+      "status": "ok",
+      "error": null
+    },
+    {
+      "step_id": 2,
+      "name": "tool_guardrail",
+      "input": {
+        "tool": "lookup_internal_hr_data",
+        "args": {
+          "query": "payroll query"
+        },
+        "approval": null
+      },
+      "output": {
+        "passed": false,
+        "guardrail_type": "tool",
+        "action": "block",
+        "reason": "restricted_internal_data",
+        "policy": "salesops_data_access_policy",
+        "sanitized_text": null,
+        "metadata": {
+          "tool_name": "lookup_internal_hr_data",
+          "tool_args": {
+            "query": "payroll query"
+          }
+        }
+      },
+      "timestamp": "2026-10-06T17:20:42.877154+00:00",
+      "status": "blocked",
+      "error": null
+    }
+  ]
+}
