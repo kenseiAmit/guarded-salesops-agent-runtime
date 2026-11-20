@@ -1,0 +1,75 @@
+{
+  "run_id": "run_2b1948630268",
+  "timestamp": "2026-10-06T18:12:26.428226+00:00",
+  "input": "What is the internal outlook for next quarter?",
+  "selected_tools": [],
+  "tool_arguments": [],
+  "tool_outputs": [],
+  "guardrail_decisions": [
+    {
+      "guardrail": "output_guardrail",
+      "action": "block",
+      "reason": "sensitive_output_executive_compensation",
+      "policy": "salesops_data_access_policy"
+    }
+  ],
+  "hitl_decision": null,
+  "final_output": "I cannot provide that information as it involves restricted internal data.",
+  "error_messages": [
+    "Output blocked by policy: sensitive_output_executive_compensation"
+  ],
+  "steps": [
+    {
+      "step_id": 1,
+      "name": "input_guardrail",
+      "input": {
+        "question": "What is the internal outlook for next quarter?"
+      },
+      "output": {
+        "passed": true,
+        "guardrail_type": "input",
+        "action": "allow",
+        "reason": null,
+        "policy": "salesops_data_access_policy",
+        "sanitized_text": null,
+        "metadata": {}
+      },
+      "timestamp": "2026-10-06T18:12:26.426589+00:00",
+      "status": "ok",
+      "error": null
+    },
+    {
+      "step_id": 5,
+      "name": "llm_generation",
+      "input": {
+        "messages": [
+          {
+            "role": "user",
+            "content": "What is the internal outlook for next quarter?"
+          }
+        ]
+      },
+      "output": {
+        "content": "[REDACTED_SENSITIVE_OUTPUT]",
+        "tokens": "[REDACTED_CONFIDENTIAL_FIELD]"
+      },
+      "timestamp": "2026-10-06T18:12:26.426624+00:00",
+      "status": "ok",
+      "error": null
+    },
+    {
+      "step_id": 6,
+      "name": "output_guardrail",
+      "input": {
+        "raw_output": "[REDACTED_SENSITIVE_OUTPUT]"
+      },
+      "output": {
+        "safe_output": "I cannot provide that information as it involves restricted internal data.",
+        "passed": false
+      },
+      "timestamp": "2026-10-06T18:12:26.426642+00:00",
+      "status": "blocked",
+      "error": null
+    }
+  ]
+}
