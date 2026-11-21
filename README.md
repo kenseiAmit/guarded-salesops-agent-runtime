@@ -1,13 +1,13 @@
 <div align="center">
   <img src="assets/hero-banner.svg" alt="Guarded SalesOps Agent Runtime" width="100%" />
   <br/><br/>
-  [![CI Pipeline](https://github.com/kenseiAmit/guarded-salesops-agent-runtime/actions/workflows/ci.yml/badge.svg)](https://github.com/kenseiAmit/guarded-salesops-agent-runtime/actions/workflows/ci.yml)
-  [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
-  [![Package Manager: uv](https://img.shields.io/badge/package%20manager-uv-purple.svg)](https://docs.astral.sh/uv/)
-  [![Evaluation Pass Rate](https://img.shields.io/badge/eval%20suite-14%2F14%20(100%25)-brightgreen.svg)](reports/evaluation_report.md)
-  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-
-  <br/>
+  <p>
+    <a href="https://github.com/kenseiAmit/guarded-salesops-agent-runtime/actions/workflows/ci.yml"><img src="https://github.com/kenseiAmit/guarded-salesops-agent-runtime/actions/workflows/ci.yml/badge.svg" alt="CI Pipeline" /></a>
+    <a href="https://www.python.org/downloads/"><img src="https://img.shields.io/badge/python-3.10%2B-blue.svg" alt="Python 3.10+" /></a>
+    <a href="https://docs.astral.sh/uv/"><img src="https://img.shields.io/badge/package%20manager-uv-purple.svg" alt="Package Manager: uv" /></a>
+    <a href="reports/evaluation_report.md"><img src="https://img.shields.io/badge/eval%20suite-14%2F14%20%28100%25%29-brightgreen.svg" alt="Evaluation Pass Rate" /></a>
+    <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" /></a>
+  </p>
   <img src="assets/live-demo.svg" alt="Live Execution Trace" width="96%" />
 </div>
 
