@@ -6,6 +6,8 @@
 [![Evaluation Pass Rate](https://img.shields.io/badge/eval%20suite-14%2F14%20(100%25)-brightgreen.svg)](reports/evaluation_report.md)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
+![SalesOps Guardrail & Operational Telemetry](docs/images/salesops_guardrail_telemetry.png)
+
 An enterprise-grade, observable, and multi-tier guarded AI agent runtime for B2B Sales Operations (**NexaCRM**). Rather than relying solely on system prompts for safety, this runtime enforces security policies deterministically in application code—combining **input/tool/output guardrails**, **AST-constrained CRM code sandboxing**, **human-in-the-loop (HITL) approval gates**, **multi-tenant SQLite state isolation**, **recursive PII/secret trace redaction**, and **automated regression evaluation**.
 
 ---
